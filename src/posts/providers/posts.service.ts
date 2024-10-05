@@ -35,11 +35,7 @@ export class PostsService {
   }
 
   public async delete(id: number) {
-    let post = await this.postRepository.findOneBy({ id });
-
     await this.postRepository.delete(id);
-
-    await this.metaoptiOptionsRepository.delete(post.metaOptions.id);
 
     return { deleted: true, id };
   }
