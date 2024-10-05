@@ -17,14 +17,14 @@ export class PostsService {
   ) {}
 
   public async create(@Body() createPostDto: CreatePostDto) {
-    let post = this.postRepository.create(createPostDto);
+    let author = await this.usersService.findOneById(createPostDto.authorId);
+
+    let post = this.postRepository.create({ ...createPostDto, author: author });
 
     return await this.postRepository.save(post);
   }
 
   public async findAll(userId: string) {
-    const user = this.usersService.findOneById(userId);
-
     let posts = await this.postRepository.find({
       relations: {
         metaOptions: true,

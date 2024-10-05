@@ -2,6 +2,7 @@ import {
   IsArray,
   IsDate,
   IsEnum,
+  IsInt,
   IsISO8601,
   IsJSON,
   IsNotEmpty,
@@ -106,4 +107,13 @@ export class CreatePostDto {
   })
   @IsOptional()
   metaOptions?: CreatePostMetaOptionsDto | null;
+
+  @ApiProperty({
+    type: 'integer',
+    required: true,
+    example: 1,
+  })
+  @IsInt()
+  @IsNotEmpty()
+  authorId: number;
 }
