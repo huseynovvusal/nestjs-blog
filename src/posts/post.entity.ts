@@ -1,16 +1,17 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import StatusType from './enums/postStatus.enum';
 import PostType from './enums/postType.enum';
-import { CreatePostMetaOptionsDto } from '../meta-options/dtos/create-post-metaoptions.dto';
 import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { User } from 'src/users/user.entity';
+import { Tag } from '../tags/tags.entity';
 
 @Entity()
 export class Post {
@@ -84,6 +85,7 @@ export class Post {
   })
   author: User;
 
-  // Work on these in lecture on relationships
-  tags?: string[];
+  @ManyToMany(() => Tag)
+  @JoinTable()
+  tags?: Tag[];
 }
