@@ -4,6 +4,7 @@ import { AuthService } from './providers/auth.service';
 import { UsersModule } from 'src/users/users.module';
 import { HashingProvider } from './providers/hashing.provider';
 import { BcryptProvider } from './providers/bcrypt.provider';
+import { FindOneUserByEmailProvider } from './providers/find-one-user-by-email.provider';
 
 @Module({
   imports: [forwardRef(() => UsersModule)],
@@ -14,6 +15,7 @@ import { BcryptProvider } from './providers/bcrypt.provider';
       provide: HashingProvider,
       useClass: BcryptProvider,
     },
+    FindOneUserByEmailProvider,
   ],
   exports: [AuthService, HashingProvider],
 })
