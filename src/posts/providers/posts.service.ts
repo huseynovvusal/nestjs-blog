@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  Body,
   Injectable,
   RequestTimeoutException,
 } from '@nestjs/common';
@@ -15,6 +14,8 @@ import { PatchPostDto } from '../dtos/patch-post.dto';
 import { GetPostsDto } from 'src/tags/dto/get-posts.dto';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
+import { CreatePostProvider } from './create-post.provider';
+import { IActiveUser } from '../../auth/interfaces/active-user.interface';
 
 @Injectable()
 export class PostsService {
@@ -26,20 +27,11 @@ export class PostsService {
     private readonly metaoptiOptionsRepository: Repository<MetaOption>,
     private readonly tagsService: TagsService,
     private readonly paginationProvider: PaginationProvider,
+    private readonly createPostProvider: CreatePostProvider,
   ) {}
 
-  public async create(@Body() createPostDto: CreatePostDto) {
-    const author = await this.usersService.findOneById(createPostDto.authorId);
-
-    const tags = await this.tagsService.findMultipleTags(createPostDto.tags);
-
-    const post = this.postRepository.create({
-      ...createPostDto,
-      author: author,
-      tags: tags,
-    });
-
-    return await this.postRepository.save(post);
+  public async create(createPostDto: CreatePostDto, user: IActiveUser) {
+    return this.createPostProvider.create(createPostDto, user);
   }
 
   public async findAll(postQuery: GetPostsDto): Promise<Paginated<Post>> {

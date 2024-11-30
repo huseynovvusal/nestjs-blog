@@ -11,9 +11,11 @@ import {
 } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreatePostDto } from './dtos/create-post.dto';
 import { PatchPostDto } from './dtos/patch-post.dto';
 import { GetPostsDto } from 'src/tags/dto/get-posts.dto';
+import { ActiveUser } from '../auth/decorators/active-user.decorator';
+import { IActiveUser } from '../auth/interfaces/active-user.interface';
+import { CreatePostDto } from './dtos/create-post.dto';
 
 @Controller('posts')
 @ApiTags('Posts')
@@ -37,8 +39,11 @@ export class PostsController {
     description: 'The record has been successfully created.',
   })
   @Post()
-  public createPost(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  public createPost(
+    @Body() createPostDto: CreatePostDto,
+    @ActiveUser() user: IActiveUser,
+  ) {
+    return this.postsService.create(createPostDto, user);
   }
 
   @ApiOperation({

@@ -11,6 +11,7 @@ import { HashingProvider } from './hashing.provider';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import jwtConfig from '../config/jwt.config';
+import { IActiveUser } from '../interfaces/active-user.interface';
 
 @Injectable()
 export class SignInProvider {
@@ -18,15 +19,13 @@ export class SignInProvider {
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
     private readonly hashingPrivider: HashingProvider,
-
     private readonly jwtService: JwtService,
-
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
   public async signIn(signInDto: SignInDto) {
-    let user = await this.usersService.findOneByEmail(signInDto.email);
+    const user = await this.usersService.findOneByEmail(signInDto.email);
 
     let isEqual: boolean = false;
 
@@ -51,7 +50,7 @@ export class SignInProvider {
       {
         sub: user.id,
         email: user.email,
-      },
+      } as IActiveUser,
       {
         secret: this.jwtConfiguration.secret,
         audience: this.jwtConfiguration.audience,
