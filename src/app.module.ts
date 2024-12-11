@@ -32,7 +32,7 @@ const ENV = process.env.NODE_ENV;
     TypeOrmModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: !ENV ? '.env' : `.env.${ENV}`,
+      envFilePath: !ENV ? '.env' : `.env.${ENV}.local`,
       load: [appConfig, databaseConfig],
       validationSchema: environmentValidation,
     }),
