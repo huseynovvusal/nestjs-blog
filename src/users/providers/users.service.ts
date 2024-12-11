@@ -103,6 +103,6 @@ export class UsersService {
   }
 
   public async findOneByGoogleId(googleId: string) {
-    this.findOneByGoogleIdProvider.findOneByGoogleId(googleId);
+    return await this.findOneByGoogleIdProvider.findOneByGoogleId(googleId);
   }
 }
