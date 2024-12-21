@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Express } from 'express';
 
 @Injectable()
-export class UploadsService {}
+export class UploadsService {
+  public async uploadFile(file: Express.Multer.File) {}
+}
