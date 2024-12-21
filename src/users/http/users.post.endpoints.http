@@ -1,12 +1,11 @@
 ### Create User
 POST http://localhost:3000/users
 Content-Type: application/json
-#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE3MzI5Nzg1MjIsImV4cCI6MTczMjk4MjEyMiwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.YDpmEfbOkNGJLBmF46XRHCqbtUG9TfFcUT9HswBGllg
 
 {
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "johndoe11@gmail.com",
+  "firstName": "Vusal",
+  "lastName": "Huseynov",
+  "email": "huseynovvusal@gmail.com",
   "password": "Password123!"
 }
 
